@@ -1,0 +1,16 @@
+node_modules/
+dist/
+coverage/
+
+# Runtime state — machine-local, never committed.
+.keeper-state.json
+*.keeper-state.json
+*.tmp
+
+# Secrets and local configuration. `.env.example` IS committed; `.env` never is.
+.env
+.env.*
+!.env.example
+secrets/
+
+.DS_Store

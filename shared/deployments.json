@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "chains": {
+    "4663": {
+      "name": "Robinhood Chain",
+      "rpcUrl": "https://rpc.mainnet.chain.robinhood.com",
+      "testnet": false,
+      "status": "planned"
+    },
+    "46630": {
+      "name": "Robinhood Chain (local demo stack)",
+      "rpcUrl": "http://127.0.0.1:8547",
+      "testnet": true,
+      "status": "deployed"
+    }
+  }
+}

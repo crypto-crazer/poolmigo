@@ -1,0 +1,19 @@
+# Foundry
+cache/
+out/
+.DS_Store
+
+# Node / apps
+node_modules/
+frontend/.next/
+frontend/dist/
+frontend/build/
+backend/dist/
+*.log
+*.tsbuildinfo
+backend/.keeper-state.json
+
+# Env
+.env
+.env.*
+!.env.example

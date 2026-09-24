@@ -1,0 +1,71 @@
+# Poolmigo keeper — container definition.
+#
+#   docker compose build
+#   docker compose run --rm keeper node dist/cli.js tick --dry-run   # always do this first
+#   docker compose up -d
+#   docker compose logs -f keeper
+#
+# Secrets: `.env` holds configuration, NOT keys, in any environment you care about. Use the
+# `secrets:` block below (or your orchestrator's secret store) and point KEEPER_KEY_FILE at it.
+
+services:
+  keeper:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: poolmigo/keeper:0.1.0
+    container_name: poolmigo-keeper
+    restart: unless-stopped
+
+    # Configuration only. Copy .env.example -> .env and edit.
+    env_file:
+      - .env
+
+    environment:
+      # Persisted on the named volume below so a restart does not re-harvest immediately.
+      STATE_FILE: /var/lib/poolmigo-keeper/keeper-state.json
+      # Belt and braces: the image already defaults to dry-run. Flip this deliberately.
+      DRY_RUN: ${DRY_RUN:-true}
+
+    volumes:
+      - keeper-state:/var/lib/poolmigo-keeper
+
+    # --- Reaching an anvil running on the host (local development) -------------------------------
+    # The container cannot see the host's 127.0.0.1. Uncomment BOTH lines and set, in `.env`:
+    #   RPC_URL=http://host.docker.internal:8547
+    # (On Docker Desktop for macOS/Windows `host.docker.internal` already resolves; the
+    #  `extra_hosts` entry is what makes it work on Linux.)
+    #extra_hosts:
+    #  - "host.docker.internal:host-gateway"
+
+    # --- Production key handling -----------------------------------------------------------------
+    # Prefer a mounted secret over an environment variable: env vars leak into `docker inspect`,
+    # crash dumps and child processes. Set KEEPER_KEY_FILE=/run/secrets/keeper_key in `.env` and
+    # uncomment:
+    #secrets:
+    #  - keeper_key
+
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "5"
+
+    # The process is a single Node event loop doing periodic RPC; it needs very little.
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
+    tmpfs:
+      - /tmp
+
+volumes:
+  keeper-state:
+
+#secrets:
+#  keeper_key:
+#    file: ./secrets/keeper_key       # 0400, never committed — or use an external secret provider

@@ -1,0 +1,8 @@
+# pnpm >= 10 blocks dependency build (postinstall) scripts by default. These two are
+# allowed to run theirs, and nothing else is:
+#   esbuild        — links its platform binary; vite/vitest will not start without it
+#   @reown/appkit  — transitive dep of @walletconnect/ethereum-provider
+# pnpm 12 reads this from pnpm-workspace.yaml (not package.json, not .npmrc).
+allowBuilds:
+  esbuild: true
+  '@reown/appkit': true

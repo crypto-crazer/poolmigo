@@ -1,0 +1,14 @@
+{
+  "filter_paths": "lib/|test/|script/|node_modules/",
+  "exclude_dependencies": true,
+  "exclude_informational": false,
+  "exclude_low": false,
+  "fail_on": "high",
+  "solc_remaps": [
+    "@openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/",
+    "@openzeppelin/contracts-upgradeable/=lib/openzeppelin-contracts-upgradeable/contracts/",
+    "openzeppelin-foundry-upgrades/=lib/openzeppelin-foundry-upgrades/src/",
+    "forge-std/=lib/forge-std/src/",
+    "contracts/=src/"
+  ]
+}

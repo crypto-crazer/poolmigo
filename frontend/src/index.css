@@ -1,0 +1,76 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Poolmigo palette as RGB triplets so Tailwind opacity modifiers work. */
+:root {
+  color-scheme: light;
+  --c-deep: 255 248 239;      /* cream #FFF8EF */
+  --c-panel: 255 255 255;
+  --c-panel-2: 246 239 228;   /* #F6EFE4 */
+  --c-line: 221 217 209;      /* #DDD9D1 */
+  --c-line-2: 201 195 185;    /* #C9C3B9 */
+  --c-ink: 48 40 35;          /* #302823 */
+  --c-ink-2: 98 93 87;        /* #625D57 */
+  --c-ink-3: 143 137 129;     /* #8F8981 */
+  --c-aqua: 36 71 66;         /* deep teal #244742 */
+  --c-aqua-dim: 63 107 101;
+  --c-up: 40 97 79;           /* #28614F */
+  --c-down: 163 56 50;        /* #A33832 */
+  --c-amber: 139 90 19;       /* #8B5A13 */
+  --c-apricot: 243 166 110;   /* #F3A66E */
+  --c-glass: 123 184 178;     /* #7BB8B2 */
+  --c-tide: 154 90 34;        /* PMG numbers — apricot darkened for text */
+  --c-on-primary: 255 248 239;
+  --c-on-accent: 48 40 35;
+  --c-shadow: 48 40 35;
+}
+.dark {
+  color-scheme: dark;
+  --c-deep: 26 22 19;         /* warm near-black */
+  --c-panel: 35 30 26;
+  --c-panel-2: 45 38 33;
+  --c-line: 59 51 44;
+  --c-line-2: 75 66 58;
+  --c-ink: 244 238 229;
+  --c-ink-2: 195 185 173;
+  --c-ink-3: 143 137 129;
+  --c-aqua: 123 184 178;      /* sea glass carries actions on dark */
+  --c-aqua-dim: 95 156 150;
+  --c-up: 116 198 157;
+  --c-down: 232 133 125;
+  --c-amber: 227 169 78;
+  --c-apricot: 243 166 110;
+  --c-glass: 123 184 178;
+  --c-tide: 243 166 110;
+  --c-on-primary: 26 22 19;
+  --c-on-accent: 26 22 19;
+  --c-shadow: 0 0 0;
+}
+
+@layer base {
+  html { background: rgb(var(--c-deep)); }
+  body {
+    @apply bg-deep text-ink font-sans text-base antialiased;
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: 'tnum' 1;
+  }
+  * { border-color: rgb(var(--c-line)); }
+  ::selection { background: rgb(var(--c-glass) / 0.35); }
+  input[type='number']::-webkit-outer-spin-button,
+  input[type='number']::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+  input[type='number'] { -moz-appearance: textfield; }
+  button:focus-visible, a:focus-visible, input:focus-visible { outline: 2px solid rgb(var(--c-aqua)); outline-offset: 2px; }
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-thumb { background: rgb(var(--c-line)); border-radius: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+}
+
+@layer utilities {
+  .num { font-variant-numeric: tabular-nums; }
+  .display { @apply font-display font-bold; letter-spacing: -0.01em; }
+}
+
+input[type='range'] { -webkit-appearance: none; appearance: none; width: 100%; height: 4px; border-radius: 2px; background: rgb(var(--c-line)); outline: none; }
+input[type='range']::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 16px; height: 16px; border-radius: 50%; background: rgb(var(--c-aqua)); border: 2px solid rgb(var(--c-deep)); cursor: pointer; }
+input[type='range']::-moz-range-thumb { width: 16px; height: 16px; border-radius: 50%; background: rgb(var(--c-aqua)); border: 2px solid rgb(var(--c-deep)); cursor: pointer; }

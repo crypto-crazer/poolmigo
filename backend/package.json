@@ -1,0 +1,35 @@
+{
+  "name": "@poolmigo/keeper",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Poolmigo vault keeper service — executes deployTo() and rebalance() on a schedule.",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "packageManager": "pnpm@12.5.1",
+  "main": "dist/cli.js",
+  "scripts": {
+    "sync-abis": "node scripts/sync-abis.mjs",
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "start": "node dist/cli.js run",
+    "tick": "node dist/cli.js tick",
+    "dev:tick": "tsx src/cli.ts tick",
+    "dev:run": "tsx src/cli.ts run",
+    "test": "vitest run",
+    "test:unit": "vitest run test/unit",
+    "test:integration": "vitest run test/integration",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "viem": "^2.21.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.7.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0",
+    "vitest": "^5.0.1"
+  }
+}
